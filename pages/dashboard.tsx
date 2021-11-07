@@ -29,7 +29,7 @@ export default function Index(props: Props) {
         button = <button onClick={onLoginClick}>Login</button>;
         mainText = <h2>Please login.</h2>;
     } else {
-        button = <button onClick={onDashboardClick}>Dashboard</button>;
+        button = <h1>This is the dashboard!</h1>
         mainText = (
             <div>
                 <p>
@@ -37,7 +37,7 @@ export default function Index(props: Props) {
                     guilds are:
                     <ul>
                         {props.user.guilds.map((guild: PartialGuild) => (
-                            <li key={guild.id}>{guild.name}</li>
+                            <li>{guild.name}</li>
                         ))}
                     </ul>
                 </p>
