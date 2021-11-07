@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import { serialize } from "cookie";
 import { config } from "../../utils/config";
 import { sign } from "jsonwebtoken";
-import { PartialGuild, DiscordUser } from "../../utils/types";
+import { DiscordUser } from "../../utils/types";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const scope = ["identify", "guilds"].join(" ");
@@ -58,13 +58,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
     ).then((res) => res.json());
 
-    const guilds: PartialGuild[] = await fetch(
-        "http://discord.com/api/users/@me/guilds",
-        {
-            headers: { Authorization: `${token_type} ${access_token}` },
-        }
-    ).then((res) => res.json());
-
     if (!("id" in me)) {
         return res.redirect(OAUTH_URI);
     }
@@ -74,13 +67,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         config.jwtSecret,
         { expiresIn: expires_in }
     );
-    // const guildsToken = sign({ guilds: guilds }, guildsConfig.jwtSecret, {
-    //     expiresIn: "24h",
-    // });
-
-    // console.log(userToken);
-    // console.log();
-    // //console.log(guildsToken);
 
     res.setHeader(
         "Set-Cookie",
@@ -91,16 +77,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             path: "/",
         })
     );
-
-    // res.setHeader(
-    //     "Set-Cookie",
-    //     serialize(guildsConfig.cookieName, guildsToken, {
-    //         httpOnly: true,
-    //         secure: process.env.NODE_ENV !== "development",
-    //         sameSite: "lax",
-    //         path: "/",
-    //     })
-    // );
 
     res.redirect("/");
 };
