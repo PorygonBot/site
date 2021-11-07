@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import { serialize } from "cookie";
 import { config } from "../../utils/config";
 import { sign } from "jsonwebtoken";
-import { DiscordUser } from "../../utils/types";
+import { PartialGuild, DiscordUser } from "../../utils/types";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const scope = ["identify", "guilds"].join(" ");
@@ -37,16 +37,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         scope,
     }).toString();
 
-    const { access_token = null, token_type = "Bearer" } = await fetch(
-        "https://discord.com/api/oauth2/token",
-        {
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            method: "POST",
-            body,
-        }
-    ).then((res) => res.json());
+    const {
+        access_token = null,
+        token_type = "Bearer",
+        expires_in = 0,
+    } = await fetch("https://discord.com/api/oauth2/token", {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        method: "POST",
+        body,
+    }).then((res) => res.json());
 
-    if (!access_token || typeof access_token !== "string") {
+    if (!access_token || typeof access_token !== "string" || expires_in < 1) {
         return res.redirect(OAUTH_URI);
     }
 
@@ -57,21 +58,49 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
     ).then((res) => res.json());
 
+    const guilds: PartialGuild[] = await fetch(
+        "http://discord.com/api/users/@me/guilds",
+        {
+            headers: { Authorization: `${token_type} ${access_token}` },
+        }
+    ).then((res) => res.json());
+
     if (!("id" in me)) {
         return res.redirect(OAUTH_URI);
     }
 
-    const token = sign(me, config.jwtSecret, { expiresIn: "24h" });
+    const accessTokenCookieToken = sign(
+        { accessToken: access_token },
+        config.jwtSecret,
+        { expiresIn: expires_in }
+    );
+    // const guildsToken = sign({ guilds: guilds }, guildsConfig.jwtSecret, {
+    //     expiresIn: "24h",
+    // });
+
+    // console.log(userToken);
+    // console.log();
+    // //console.log(guildsToken);
 
     res.setHeader(
         "Set-Cookie",
-        serialize(config.cookieName, token, {
+        serialize(config.cookieName, accessTokenCookieToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV !== "development",
             sameSite: "lax",
             path: "/",
         })
     );
+
+    // res.setHeader(
+    //     "Set-Cookie",
+    //     serialize(guildsConfig.cookieName, guildsToken, {
+    //         httpOnly: true,
+    //         secure: process.env.NODE_ENV !== "development",
+    //         sameSite: "lax",
+    //         path: "/",
+    //     })
+    // );
 
     res.redirect("/");
 };

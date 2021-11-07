@@ -1,11 +1,19 @@
+export interface PartialGuild {
+    id: string;
+    name: string;
+    icon: string;
+    owner: boolean;
+    permissions: string;
+    features: string[];
+}
+
 export interface DiscordUser {
     id: string;
     username: string;
-    avatar: string;
     discriminator: string;
-    public_flags: number;
+    avatar: string;
     flags: number;
-    locale: string;
-    mfa_enabled: boolean;
+    public_flags: number;
     premium_type: number;
+    guilds?: PartialGuild[];
 }

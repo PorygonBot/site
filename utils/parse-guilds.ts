@@ -1,10 +1,10 @@
 import { GetServerSidePropsContext } from "next";
-import { DiscordUser } from "./types";
+import { PartialGuild } from "./types";
 import { parse } from "cookie";
 import { verify } from "jsonwebtoken";
 import { config } from "./config";
 
-export function parseUser(ctx: GetServerSidePropsContext): DiscordUser | null {
+export function parseGuilds(ctx: GetServerSidePropsContext): PartialGuild[] | null {
     if (!ctx.req.headers.cookie) {
         console.log("no cookie");
         return null;
@@ -18,11 +18,11 @@ export function parseUser(ctx: GetServerSidePropsContext): DiscordUser | null {
     }
 
     try {
-        let { iat, exp, ...user } = verify(
+        let { iat, exp, ...guilds } = verify(
             token,
             config.jwtSecret
-        ) as DiscordUser & { iat: number; exp: number };
-        return user;
+        ) as { guilds: PartialGuild[] } & { iat: number; exp: number };
+        return guilds.guilds;
     } catch (e) {
         console.error(e);
         return null;
