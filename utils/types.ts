@@ -48,17 +48,5 @@ export interface League {
 	sheetId?: string;
 	system: string;
 	rolesChannels?: { [key: string]: string };
+	rules?: Rules;
 }
-
-/**
- * {
-	name              String
-  	guildId           String
-  	channelId         String      @id
-  	resultsChannelId  String?
-  	dlId              String?
-  	sheetId           String? 
-  	system            System      @default(D)
-	rolesChannels     Json?       
-}
- */

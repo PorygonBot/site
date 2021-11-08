@@ -18,7 +18,10 @@ interface State {
 
 export default function Index(props: Props) {
     const router = useRouter();
-    const [state, setState] = useState({} as State);
+    const [state, setState] = useState({
+        guild: props.user.guilds[0],
+        league: props.user.guilds[0].leagues[0],
+    } as State);
 
     const onGuildSelect = (e) => {
         e.preventDefault();
@@ -26,6 +29,9 @@ export default function Index(props: Props) {
             guild: props.user.guilds.filter(
                 (guild: PartialGuild) => guild.id === e.target.value
             )[0],
+            league: props.user.guilds.filter(
+                (guild: PartialGuild) => guild.id === e.target.value
+            )[0].leagues[0],
         });
     };
 
@@ -40,6 +46,7 @@ export default function Index(props: Props) {
     };
 
     let leagueDropdown;
+    let leagueInfo;
     if (state.guild) {
         leagueDropdown = (
             <div>
@@ -51,6 +58,19 @@ export default function Index(props: Props) {
                 </select>
             </div>
         );
+
+        if (state.league) {
+            leagueInfo = (
+                <div>
+                    <br />
+                    {Object.keys(state.league.rules).map((ruleName: string) => (
+                        <li key={ruleName}>
+                            {ruleName}: {state.league.rules[ruleName]}
+                        </li>
+                    ))}
+                </div>
+            );
+        }
     }
 
     return (
@@ -70,6 +90,7 @@ export default function Index(props: Props) {
             </select>
             <br />
             {leagueDropdown}
+            {leagueInfo}
         </div>
     );
 }
@@ -94,7 +115,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async function (
         let leagues = await Prisma.leagueWhere("guildId", guild.id);
         newGuild.leagues = leagues;
 
-        if (leagues.length != 0 && (guild.permissions as bigint & 1<<28) != 0) {
+        if (
+            leagues.length != 0 &&
+            (guild.permissions as bigint & 1) << 28 != 0
+        ) {
+            for (let i = 0; i < newGuild.leagues.length; i++) {
+                newGuild.leagues[i].rules = await Prisma.getRules(
+                    newGuild.leagues[i].channelId
+                );
+            }
             finalGuilds.push(newGuild);
         }
     }
