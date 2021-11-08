@@ -61,13 +61,185 @@ export default function Index(props: Props) {
 
         if (state.league) {
             leagueInfo = (
-                <div>
-                    <br />
-                    {Object.keys(state.league.rules).map((ruleName: string) => (
-                        <li key={ruleName}>
-                            {ruleName}: {state.league.rules[ruleName]}
-                        </li>
-                    ))}
+                <div id="options">
+                    <div id="battleOptions">
+                        <p>
+                            Recoil:
+                            <input
+                                type="radio"
+                                id="direct"
+                                name="recoil"
+                                value="direct"
+                            />
+                            <label>Direct</label>
+                            <input
+                                type="radio"
+                                id="passive"
+                                name="recoil"
+                                value="passive"
+                            />
+                            <label>Passive</label>
+                            <input
+                                type="radio"
+                                id="none"
+                                name="recoil"
+                                value="none"
+                            />
+                            <label>None</label>
+                        </p>
+                        <p>
+                            Suicide:
+                            <input
+                                type="radio"
+                                id="direct"
+                                name="suicide"
+                                value="direct"
+                            />
+                            <label>Direct</label>
+                            <input
+                                type="radio"
+                                id="passive"
+                                name="suicide"
+                                value="passive"
+                            />
+                            <label>Passive</label>
+                            <input
+                                type="radio"
+                                id="none"
+                                name="suicide"
+                                value="none"
+                            />
+                            <label>None</label>
+                        </p>
+                        <p>
+                            Ability/Item:
+                            <input
+                                type="radio"
+                                id="direct"
+                                name="abilityitem"
+                                value="direct"
+                            />
+                            <label>Direct</label>
+                            <input
+                                type="radio"
+                                id="passive"
+                                name="abilityitem"
+                                value="passive"
+                            />
+                            <label>Passive</label>
+                            <input
+                                type="radio"
+                                id="none"
+                                name="abilityitem"
+                                value="none"
+                            />
+                            <label>None</label>
+                        </p>
+                        <p>
+                            Self/Team:
+                            <input
+                                type="radio"
+                                id="direct"
+                                name="selfteam"
+                                value="direct"
+                            />
+                            <label>Direct</label>
+                            <input
+                                type="radio"
+                                id="passive"
+                                name="selfteam"
+                                value="passive"
+                            />
+                            <label>Passive</label>
+                            <input
+                                type="radio"
+                                id="none"
+                                name="selfteam"
+                                value="none"
+                            />
+                            <label>None</label>
+                        </p>
+                        <p>
+                            Destiny Bond:
+                            <input
+                                type="radio"
+                                id="direct"
+                                name="db"
+                                value="direct"
+                            />
+                            <label>Direct</label>
+                            <input
+                                type="radio"
+                                id="passive"
+                                name="db"
+                                value="passive"
+                            />
+                            <label>Passive</label>
+                            <input
+                                type="radio"
+                                id="none"
+                                name="db"
+                                value="none"
+                            />
+                            <label>None</label>
+                        </p>
+                        <p>
+                            Forfeit
+                            <input
+                                type="radio"
+                                id="direct"
+                                name="forfeit"
+                                value="direct"
+                            />
+                            <label>Direct</label>
+                            <input
+                                type="radio"
+                                id="passive"
+                                name="forfeit"
+                                value="passive"
+                            />
+                            <label>Passive</label>
+                            <input
+                                type="radio"
+                                id="none"
+                                name="forfeit"
+                                value="none"
+                            />
+                            <label>None</label>
+                        </p>
+                    </div>
+                    <div id="statsOptions">
+                        <p>
+                            Spoiler:
+                            <input type="checkbox" name="spoiler" />
+                        </p>
+                        <p>
+                            Tidbits:
+                            <input type="checkbox" name="tidbits" />
+                        </p>
+                        <p>
+                            Combine Direct/Passive:
+                            <input type="checkbox" name="combine" />
+                        </p>
+                    </div>
+                    <div id="otherOptions">
+                        <p>
+                            Quirks: 
+                            <input type="checkbox" name="quirks" />
+                        </p>
+                        <p>
+                            Don't Talk in Discord: 
+                            <input type="checkbox" name="notalk" />
+                        </p>
+                        <p>
+                            Ping: 
+                            <input type="textbox" name="ping" />
+                        </p>
+                        <p>
+                            Redirect Channel: 
+                            <input type="textbox" name="redirect" />
+                        </p>
+                    </div>
                 </div>
             );
         }
@@ -80,7 +252,6 @@ export default function Index(props: Props) {
                 <a>Home</a>
             </Link>
             <p>This is your dashboard</p>
-            <br />
             <br />
             <label>Server: </label>
             <select name="guilds" id="guilds" onChange={onGuildSelect}>

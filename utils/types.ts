@@ -4,8 +4,8 @@ export interface PartialGuild {
     icon: string;
     owner: boolean;
     permissions: string;
-	features: string[];
-	leagues?: League[];
+    features: string[];
+    leagues?: League[];
 }
 
 export interface DiscordUser {
@@ -20,33 +20,32 @@ export interface DiscordUser {
 }
 
 export interface Rules {
-    channelId: string,
-	leagueName: string,
-	recoil: string,
-	suicide: string,
-	abilityitem: string,
-	selfteam: string,
-	db: string,
-	spoiler: boolean,
-	ping: string,
-	forfeit: string,
-	format: string,
-	quirks: boolean,
-	notalk: boolean,
-	tb: boolean,
-	combine: boolean,
-	redirect: string,
-	isSlash?: boolean,
+    channelId: string;
+    leagueName: string;
+    recoil: string;
+    suicide: string;
+    abilityitem: string;
+    selfteam: string;
+    db: string;
+    spoiler: boolean;
+    ping: string;
+    forfeit: string;
+    format: string;
+    quirks: boolean;
+    notalk: boolean;
+    tb: boolean;
+    combine: boolean;
+    redirect: string;
 }
 
 export interface League {
-	name: string;
-	guildId: string;
-	channelId: string;
-	resultsChannelId?: string;
-	dlId?: string;
-	sheetId?: string;
-	system: string;
-	rolesChannels?: { [key: string]: string };
-	rules?: Rules;
+    name: string;
+    guildId: string;
+    channelId: string;
+    resultsChannelId?: string;
+    dlId?: string;
+    sheetId?: string;
+    system: string;
+    rolesChannels?: { [key: string]: string };
+    rules?: Rules;
 }
