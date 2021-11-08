@@ -4,7 +4,7 @@ import { parse } from "cookie";
 import { verify } from "jsonwebtoken";
 import { config } from "./config";
 
-export async function useUser(
+export async function getUser(
     ctx: GetServerSidePropsContext
 ): Promise<DiscordUser> {
     if (!ctx.req.headers.cookie) {

@@ -1,8 +1,9 @@
 import { GetServerSideProps } from "next";
+import Link from "next/link"
 import { useRouter } from "next/router";
 
 import { DiscordUser, PartialGuild } from "../utils/types";
-import { useUser } from "../utils/useUser";
+import { getUser } from "../utils/getUser";
 
 interface Props {
     user: DiscordUser;
@@ -13,43 +14,10 @@ interface Props {
 export default function Index(props: Props) {
     const router = useRouter();
 
-    const onLoginClick = (e) => {
-        e.preventDefault();
-        router.push("/api/oauth");
-    };
-
-    const onDashboardClick = (e) => {
-        e.preventDefault();
-        router.push("/dashboard");
-    };
-
-    let button;
-    let mainText;
-    if (!props.user) {
-        button = <button onClick={onLoginClick}>Login</button>;
-        mainText = <h2>Please login.</h2>;
-    } else {
-        button = <h1>This is the dashboard!</h1>
-        mainText = (
-            <div>
-                <p>
-                    Hey, {props.user.username}#{props.user.discriminator}! Your
-                    guilds are:
-                    <ul>
-                        {props.user.guilds.map((guild: PartialGuild) => (
-                            <li>{guild.name}</li>
-                        ))}
-                    </ul>
-                </p>
-            </div>
-        );
-    }
-
     return (
         <div>
             <h1>Porygon</h1>
-            {button}
-            {mainText}
+            <Link href="/"><a>Home</a></Link>
         </div>
     );
 }
@@ -57,7 +25,16 @@ export default function Index(props: Props) {
 export const getServerSideProps: GetServerSideProps<Props> = async function (
     ctx
 ) {
-    const user = await useUser(ctx);
+    let user = await getUser(ctx);
+
+    if (!user) {
+        return {
+            redirect: {
+                destination: "/api/oauth",
+                permanent: false,
+            },
+        };
+    }
 
     return { props: { user } };
 };

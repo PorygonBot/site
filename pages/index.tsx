@@ -1,14 +1,14 @@
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { DiscordUser, PartialGuild } from "../utils/types";
-import { useUser } from "../utils/useUser";
+import { getUser } from "../utils/getUser";
+import Prisma from '../utils/prisma';
 
 interface Props {
     user: DiscordUser;
 }
-
-//TODO function over form. make the dashboard work before you make it look good.
 
 export default function Index(props: Props) {
     const router = useRouter();
@@ -29,7 +29,8 @@ export default function Index(props: Props) {
         button = <button onClick={onLoginClick}>Login</button>;
         mainText = <h2>Please login.</h2>;
     } else {
-        button = <button onClick={onDashboardClick}>Dashboard</button>;
+        //button = <button onClick={onDashboardClick}>Dashboard</button>;
+        button = <Link href="/dashboard"><a>Dashboard</a></Link>;
         mainText = (
             <div>
                 <p>
@@ -57,7 +58,17 @@ export default function Index(props: Props) {
 export const getServerSideProps: GetServerSideProps<Props> = async function (
     ctx
 ) {
-    const user = await useUser(ctx);
+    let user = await getUser(ctx);
+
+    let finalGuilds = [];
+    for (let guild of user.guilds) {
+        let leagues = await Prisma.leagueWhere("guildId", guild.id);
+        if (leagues.length != 0) {
+            finalGuilds.push(guild);
+        }
+    }
+
+    user.guilds = finalGuilds;
 
     return { props: { user } };
 };

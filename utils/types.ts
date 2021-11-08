@@ -17,3 +17,23 @@ export interface DiscordUser {
     premium_type: number;
     guilds?: PartialGuild[];
 }
+
+export interface Rules {
+    channelId: string,
+	leagueName: string,
+	recoil: string,
+	suicide: string,
+	abilityitem: string,
+	selfteam: string,
+	db: string,
+	spoiler: boolean,
+	ping: string,
+	forfeit: string,
+	format: string,
+	quirks: boolean,
+	notalk: boolean,
+	tb: boolean,
+	combine: boolean,
+	redirect: string,
+	isSlash?: boolean,
+}
