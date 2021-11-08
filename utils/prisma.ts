@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Rules } from "./types";
+import { Rules, League } from "./types";
 
 //Database!
 const prisma = new PrismaClient();
@@ -48,7 +48,7 @@ class Prisma {
             where: obj
         });
 
-        return leagues;
+        return leagues as League[];
     }
 
     static async getLeague(channelId: string) {

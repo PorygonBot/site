@@ -4,7 +4,8 @@ export interface PartialGuild {
     icon: string;
     owner: boolean;
     permissions: string;
-    features: string[];
+	features: string[];
+	leagues?: League[];
 }
 
 export interface DiscordUser {
@@ -37,3 +38,27 @@ export interface Rules {
 	redirect: string,
 	isSlash?: boolean,
 }
+
+export interface League {
+	name: string;
+	guildId: string;
+	channelId: string;
+	resultsChannelId?: string;
+	dlId?: string;
+	sheetId?: string;
+	system: string;
+	rolesChannels?: { [key: string]: string };
+}
+
+/**
+ * {
+	name              String
+  	guildId           String
+  	channelId         String      @id
+  	resultsChannelId  String?
+  	dlId              String?
+  	sheetId           String? 
+  	system            System      @default(D)
+	rolesChannels     Json?       
+}
+ */

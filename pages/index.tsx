@@ -60,15 +60,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async function (
 ) {
     let user = await getUser(ctx);
 
-    let finalGuilds = [];
-    for (let guild of user.guilds) {
-        let leagues = await Prisma.leagueWhere("guildId", guild.id);
-        if (leagues.length != 0) {
-            finalGuilds.push(guild);
-        }
-    }
+    // let finalGuilds = [];
+    // for (let guild of user.guilds) {
+    //     let leagues = await Prisma.leagueWhere("guildId", guild.id);
+    //     if (leagues.length != 0) {
+    //         finalGuilds.push(guild);
+    //     }
+    // }
 
-    user.guilds = finalGuilds;
+    // user.guilds = finalGuilds;
 
     return { props: { user } };
 };
