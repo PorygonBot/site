@@ -29,7 +29,6 @@ export default function Index(props: Props) {
         button = <button onClick={onLoginClick}>Login</button>;
         mainText = <h2>Please login.</h2>;
     } else {
-        //button = <button onClick={onDashboardClick}>Dashboard</button>;
         button = <Link href="/dashboard"><a>Dashboard</a></Link>;
         mainText = (
             <div>
@@ -59,16 +58,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async function (
     ctx
 ) {
     let user = await getUser(ctx);
-
-    // let finalGuilds = [];
-    // for (let guild of user.guilds) {
-    //     let leagues = await Prisma.leagueWhere("guildId", guild.id);
-    //     if (leagues.length != 0) {
-    //         finalGuilds.push(guild);
-    //     }
-    // }
-
-    // user.guilds = finalGuilds;
 
     return { props: { user } };
 };
