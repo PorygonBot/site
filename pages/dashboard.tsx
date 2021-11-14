@@ -10,7 +10,6 @@ import Prisma from "../utils/prisma";
 interface Props {
     user: DiscordUser;
 }
-
 interface State {
     guild?: PartialGuild;
     league?: League;
