@@ -40,6 +40,9 @@ export default function Index(props: Props) {
             )[0].leagues[0].rules,
             saved: false,
         });
+
+        console.log(state.guild.name);
+        console.log(state.guild.leagues.map((league) => league.name));
     };
 
     const onLeagueSelect = (e) => {
