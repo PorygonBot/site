@@ -57,7 +57,7 @@ export default function Index(props: Props) {
         });
     };
 
-    const onRulesRadioChange = (e) => {
+    const onRulesChange = (e) => {
         let newCurrentRules = state.currentRules;
         newCurrentRules[e.target.name] = e.target.value;
 
@@ -83,7 +83,6 @@ export default function Index(props: Props) {
             body: JSON.stringify(body),
         })
             .then((result) => {
-                console.log(result);
                 return result;
             })
             .catch((e) => console.error(e));
@@ -122,7 +121,7 @@ export default function Index(props: Props) {
                                 name="recoil"
                                 value="D"
                                 checked={state.currentRules.recoil === "D"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>Direct</label>
                             <input
@@ -131,7 +130,7 @@ export default function Index(props: Props) {
                                 name="recoil"
                                 value="P"
                                 checked={state.currentRules.recoil === "P"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>Passive</label>
                             <input
@@ -140,11 +139,11 @@ export default function Index(props: Props) {
                                 name="recoil"
                                 value="N"
                                 checked={state.currentRules.recoil === "N"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>None</label>
                         </div>
-                        <div onChange={onRulesRadioChange}>
+                        <div onChange={onRulesChange}>
                             Suicide:
                             <input
                                 type="radio"
@@ -152,7 +151,7 @@ export default function Index(props: Props) {
                                 name="suicide"
                                 value="D"
                                 checked={state.currentRules.suicide === "D"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>Direct</label>
                             <input
@@ -161,7 +160,7 @@ export default function Index(props: Props) {
                                 name="suicide"
                                 value="P"
                                 checked={state.currentRules.suicide === "P"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>Passive</label>
                             <input
@@ -170,11 +169,11 @@ export default function Index(props: Props) {
                                 name="suicide"
                                 value="N"
                                 checked={state.currentRules.suicide === "N"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>None</label>
                         </div>
-                        <div onChange={onRulesRadioChange}>
+                        <div onChange={onRulesChange}>
                             Ability/Item:
                             <input
                                 type="radio"
@@ -182,7 +181,7 @@ export default function Index(props: Props) {
                                 name="abilityitem"
                                 value="D"
                                 checked={state.currentRules.abilityitem === "D"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>Direct</label>
                             <input
@@ -191,7 +190,7 @@ export default function Index(props: Props) {
                                 name="abilityitem"
                                 value="P"
                                 checked={state.currentRules.abilityitem === "P"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>Passive</label>
                             <input
@@ -200,11 +199,11 @@ export default function Index(props: Props) {
                                 name="abilityitem"
                                 value="N"
                                 checked={state.currentRules.abilityitem === "N"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>None</label>
                         </div>
-                        <div onChange={onRulesRadioChange}>
+                        <div onChange={onRulesChange}>
                             Self/Team:
                             <input
                                 type="radio"
@@ -212,7 +211,7 @@ export default function Index(props: Props) {
                                 name="selfteam"
                                 value="D"
                                 checked={state.currentRules.selfteam === "D"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>Direct</label>
                             <input
@@ -221,7 +220,7 @@ export default function Index(props: Props) {
                                 name="selfteam"
                                 value="P"
                                 checked={state.currentRules.selfteam === "P"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>Passive</label>
                             <input
@@ -230,11 +229,11 @@ export default function Index(props: Props) {
                                 name="selfteam"
                                 value="N"
                                 checked={state.currentRules.selfteam === "N"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>None</label>
                         </div>
-                        <div onChange={onRulesRadioChange}>
+                        <div onChange={onRulesChange}>
                             Destiny Bond:
                             <input
                                 type="radio"
@@ -242,7 +241,7 @@ export default function Index(props: Props) {
                                 name="db"
                                 value="D"
                                 checked={state.currentRules.db === "D"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>Direct</label>
                             <input
@@ -251,7 +250,7 @@ export default function Index(props: Props) {
                                 name="db"
                                 value="P"
                                 checked={state.currentRules.db === "P"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>Passive</label>
                             <input
@@ -260,11 +259,11 @@ export default function Index(props: Props) {
                                 name="db"
                                 value="N"
                                 checked={state.currentRules.db === "N"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>None</label>
                         </div>
-                        <div onChange={onRulesRadioChange}>
+                        <div onChange={onRulesChange}>
                             Forfeit
                             <input
                                 type="radio"
@@ -272,7 +271,7 @@ export default function Index(props: Props) {
                                 name="forfeit"
                                 value="D"
                                 checked={state.currentRules.forfeit === "D"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>Direct</label>
                             <input
@@ -281,7 +280,7 @@ export default function Index(props: Props) {
                                 name="forfeit"
                                 value="P"
                                 checked={state.currentRules.forfeit === "P"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>Passive</label>
                             <input
@@ -290,7 +289,7 @@ export default function Index(props: Props) {
                                 name="forfeit"
                                 value="N"
                                 checked={state.currentRules.forfeit === "N"}
-                                onChange={onRulesRadioChange}
+                                onChange={onRulesChange}
                             />
                             <label>None</label>
                         </div>
@@ -298,33 +297,68 @@ export default function Index(props: Props) {
                     <div id="statsOptions">
                         <p>
                             Spoiler:
-                            <input type="checkbox" name="spoiler" />
+                            <input
+                                type="checkbox"
+                                name="spoiler"
+                                checked={state.currentRules.spoiler}
+                                onChange={onRulesChange}
+                            />
                         </p>
                         <p>
                             Tidbits:
-                            <input type="checkbox" name="tidbits" />
+                            <input
+                                type="checkbox"
+                                name="tidbits"
+                                checked={state.currentRules.tb}
+                                onChange={onRulesChange}
+                            />
                         </p>
                         <p>
                             Combine Direct/Passive:
-                            <input type="checkbox" name="combine" />
+                            <input
+                                type="checkbox"
+                                name="combine"
+                                checked={state.currentRules.combine}
+                                onChange={onRulesChange}
+                            />
                         </p>
                     </div>
                     <div id="otherOptions">
                         <p>
                             Quirks:
-                            <input type="checkbox" name="quirks" />
+                            <input
+                                type="checkbox"
+                                name="quirks"
+                                checked={state.currentRules.quirks}
+                                onChange={onRulesChange}
+                            />
                         </p>
                         <p>
                             Don't Talk in Discord:
-                            <input type="checkbox" name="notalk" />
+                            <input
+                                type="checkbox"
+                                name="notalk"
+                                checked={state.currentRules.notalk}
+                                onChange={onRulesChange}
+                            />
                         </p>
                         <p>
                             Ping:
-                            <input type="textbox" name="ping" />
+                            <input
+                                type="textbox"
+                                name="ping"
+                                value={state.currentRules.ping}
+                                onChange={onRulesChange}
+                            />
                         </p>
                         <p>
                             Redirect Channel:
-                            <input type="textbox" name="redirect" />
+                            <input
+                                type="textbox"
+                                name="redirect"
+                                value={state.currentRules.redirect}
+                                onChange={onRulesChange}
+                            />
                         </p>
                     </div>
                     <button onClick={saveOptions}>Save</button>
@@ -345,7 +379,7 @@ export default function Index(props: Props) {
             <label>Server: </label>
             <select name="guilds" id="guilds" onChange={onGuildSelect}>
                 {props.user.guilds.map((guild: PartialGuild) => (
-                    <option value={guild.id}>{guild.name}</option>
+                    <option key={guild.id}>{guild.name}</option>
                 ))}
             </select>
             <br />
@@ -354,8 +388,6 @@ export default function Index(props: Props) {
         </div>
     );
 }
-
-//TODO: find a way to get rules every reload. or, find a way to save rules without resetting whole page.
 
 export const getServerSideProps: GetServerSideProps<Props> = async function (
     ctx
