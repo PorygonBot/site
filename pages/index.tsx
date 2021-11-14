@@ -33,13 +33,7 @@ export default function Index(props: Props) {
         mainText = (
             <div>
                 <p>
-                    Hey, {props.user.username}#{props.user.discriminator}! Your
-                    guilds are:
-                    <ul>
-                        {props.user.guilds.map((guild: PartialGuild) => (
-                            <li key={guild.id}>{guild.name}</li>
-                        ))}
-                    </ul>
+                    Hey, {props.user.username}#{props.user.discriminator}! Click on the dashboard link above!
                 </p>
             </div>
         );
