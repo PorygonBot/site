@@ -350,6 +350,9 @@ export default function Index(props: Props) {
                                 value={state.currentRules.ping}
                                 onChange={onRulesChange}
                             />
+                            <Link href="https://media.discordapp.net/attachments/705546616383471656/909550970030133308/unknown.png">
+                                <a target="_blank">?</a>
+                            </Link>
                         </p>
                         <p>
                             Redirect Channel:
@@ -359,6 +362,9 @@ export default function Index(props: Props) {
                                 value={state.currentRules.redirect}
                                 onChange={onRulesChange}
                             />
+                            <Link href="https://media.discordapp.net/attachments/692097604108156928/909550311767695400/unknown.png">
+                                <a target="_blank">?</a>
+                            </Link>
                         </p>
                     </div>
                     <button onClick={saveOptions}>Save</button>
