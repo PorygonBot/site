@@ -66,7 +66,17 @@ export default function Index(props: Props) {
 
     const onRulesChange = (e) => {
         let newCurrentRules = state.currentRules;
-        newCurrentRules[e.target.name] = e.target.value;
+        let value;
+        if (e.target.value === "on") {
+            value = true;
+        }
+        else if (e.target.value === "off") {
+            value = false;
+        }
+        else {
+            value = e.target.value;
+        }
+        newCurrentRules[e.target.name] = value;
 
         setState({
             ...state,
