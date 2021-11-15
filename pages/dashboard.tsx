@@ -31,17 +31,17 @@ export default function Index(props: Props) {
         console.log(props.user.guilds);
         console.log(e.target.value);
         console.log(props.user.guilds.filter(
-            (guild: PartialGuild) => guild.id === e.target.value
+            (guild: PartialGuild) => guild.id === e.target.key
         ));
         setState({
             guild: props.user.guilds.filter(
-                (guild: PartialGuild) => guild.id === e.target.value
+                (guild: PartialGuild) => guild.id === e.target.key
             )[0],
             league: props.user.guilds.filter(
-                (guild: PartialGuild) => guild.id === e.target.value
+                (guild: PartialGuild) => guild.id === e.target.key
             )[0].leagues[0],
             currentRules: props.user.guilds.filter(
-                (guild: PartialGuild) => guild.id === e.target.value
+                (guild: PartialGuild) => guild.id === e.target.key
             )[0].leagues[0].rules,
             saved: false,
         });
