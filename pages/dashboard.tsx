@@ -392,7 +392,7 @@ export default function Index(props: Props) {
             <label>Server: </label>
             <select name="guilds" id="guilds" onChange={onGuildSelect}>
                 {props.user.guilds.map((guild: PartialGuild) => (
-                    <option key={guild.id}>{guild.name}</option>
+                    <option value={guild.id} key={guild.id}>{guild.name}</option>
                 ))}
             </select>
             <br />
