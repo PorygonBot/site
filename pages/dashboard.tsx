@@ -29,7 +29,7 @@ export default function Index(props: Props) {
     const onGuildSelect = (e) => {
         e.preventDefault();
         console.log(props.user.guilds);
-        console.log(e.target.value);
+        console.log(e.target.key);
         console.log(props.user.guilds.filter(
             (guild: PartialGuild) => guild.id === e.target.key
         ));
