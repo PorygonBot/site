@@ -29,19 +29,19 @@ export default function Index(props: Props) {
     const onGuildSelect = (e) => {
         e.preventDefault();
         console.log(props.user.guilds);
-        console.log(e.target.key);
+        console.log(e.target.value);
         console.log(props.user.guilds.filter(
-            (guild: PartialGuild) => guild.id === e.target.key
+            (guild: PartialGuild) => guild.id === e.target.value
         ));
         setState({
             guild: props.user.guilds.filter(
-                (guild: PartialGuild) => guild.id === e.target.key
+                (guild: PartialGuild) => guild.id === e.target.value
             )[0],
             league: props.user.guilds.filter(
-                (guild: PartialGuild) => guild.id === e.target.key
+                (guild: PartialGuild) => guild.id === e.target.value
             )[0].leagues[0],
             currentRules: props.user.guilds.filter(
-                (guild: PartialGuild) => guild.id === e.target.key
+                (guild: PartialGuild) => guild.id === e.target.value
             )[0].leagues[0].rules,
             saved: false,
         });
