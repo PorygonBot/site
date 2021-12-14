@@ -401,7 +401,7 @@ export default function Index(props: Props) {
             <br />
             <label>Server: </label>
             <select name="guilds" id="guilds" onChange={onGuildSelect}>
-                {props.user.guilds.map((guild: PartialGuild) => (
+                {props.user.guilds.filter((guild) => (guild.permissions as bigint & 1) << 28 != 0).map((guild: PartialGuild) => (
                     <option value={guild.id} key={guild.id}>{guild.name}</option>
                 ))}
             </select>
