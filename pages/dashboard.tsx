@@ -120,7 +120,9 @@ export default function Index(props: Props) {
                 <label>League: </label>
                 <select name="leagues" id="leagues" onChange={onLeagueSelect}>
                     {state.guild.leagues.map((league: League) => (
-                        <option value={league.name} key={league.channelId}>{league.name}</option>
+                        <option value={league.name} key={league.channelId}>
+                            {league.name}
+                        </option>
                     ))}
                 </select>
             </div>
@@ -401,12 +403,11 @@ export default function Index(props: Props) {
             <br />
             <label>Server: </label>
             <select name="guilds" id="guilds" onChange={onGuildSelect}>
-                {props.user.guilds
-                    .map((guild: PartialGuild) => (
-                        <option value={guild.id} key={guild.id}>
-                            {guild.name}
-                        </option>
-                    ))}
+                {props.user.guilds.map((guild: PartialGuild) => (
+                    <option value={guild.id} key={guild.id}>
+                        {guild.name}
+                    </option>
+                ))}
             </select>
             <br />
             {leagueDropdown}
@@ -437,7 +438,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async function (
         newGuild.leagues = leagues;
 
         if (
-            leagues.length != 0 && (BigInt(guild.permissions) & (1n << 28n)) != 0n
+            leagues.length != 0 &&
+            (BigInt(guild.permissions) & (1n << 28n)) != 0n
         ) {
             for (let i = 0; i < newGuild.leagues.length; i++) {
                 newGuild.leagues[i].rules = await Prisma.getRules(
