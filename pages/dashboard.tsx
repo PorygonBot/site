@@ -30,9 +30,11 @@ export default function Index(props: Props) {
         e.preventDefault();
         console.log(props.user.guilds);
         console.log(e.target.value);
-        console.log(props.user.guilds.filter(
-            (guild: PartialGuild) => guild.id === e.target.value
-        ));
+        console.log(
+            props.user.guilds.filter(
+                (guild: PartialGuild) => guild.id === e.target.value
+            )
+        );
         setState({
             guild: props.user.guilds.filter(
                 (guild: PartialGuild) => guild.id === e.target.value
@@ -69,11 +71,9 @@ export default function Index(props: Props) {
         let value;
         if (e.target.value === "on") {
             value = true;
-        }
-        else if (e.target.value === "off") {
+        } else if (e.target.value === "off") {
             value = false;
-        }
-        else {
+        } else {
             value = e.target.value;
         }
         newCurrentRules[e.target.name] = value;
@@ -120,7 +120,7 @@ export default function Index(props: Props) {
                 <label>League: </label>
                 <select name="leagues" id="leagues" onChange={onLeagueSelect}>
                     {state.guild.leagues.map((league: League) => (
-                        <option value={league.name}>{league.name}</option>
+                        <option value={league.name} key={league.channelId}>{league.name}</option>
                     ))}
                 </select>
             </div>
@@ -401,9 +401,12 @@ export default function Index(props: Props) {
             <br />
             <label>Server: </label>
             <select name="guilds" id="guilds" onChange={onGuildSelect}>
-                {props.user.guilds.filter((guild) => (guild.permissions as bigint & 1) << 28 != 0).map((guild: PartialGuild) => (
-                    <option value={guild.id} key={guild.id}>{guild.name}</option>
-                ))}
+                {props.user.guilds
+                    .map((guild: PartialGuild) => (
+                        <option value={guild.id} key={guild.id}>
+                            {guild.name}
+                        </option>
+                    ))}
             </select>
             <br />
             {leagueDropdown}
@@ -417,7 +420,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async function (
 ) {
     let user = await getUser(ctx);
 
-    if (!user) {
+    if (!user || !user.guilds) {
         return {
             redirect: {
                 destination: "/api/oauth",
@@ -430,10 +433,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async function (
     for (let guild of user.guilds) {
         let newGuild: PartialGuild = guild;
         let leagues = await Prisma.leagueWhere("guildId", guild.id);
+        console.log(`${guild.name}: ${leagues}`);
         newGuild.leagues = leagues;
 
         if (
-            leagues.length != 0 && (guild.permissions as bigint & 1) << 28 != 0
+            leagues.length != 0 && (BigInt(guild.permissions) & (1n << 28n)) != 0n
         ) {
             for (let i = 0; i < newGuild.leagues.length; i++) {
                 newGuild.leagues[i].rules = await Prisma.getRules(

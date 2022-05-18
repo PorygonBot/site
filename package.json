@@ -9,10 +9,10 @@
         "start": "next start -p $PORT"
     },
     "dependencies": {
-        "@prisma/client": "3.4.1",
+        "@prisma/client": "^3.4.1",
         "cookie": "^0.4.1",
         "jsonwebtoken": "^8.5.1",
-        "next": "10.1.3",
+        "next": "^12.1.6",
         "node-fetch": "^2.6.1",
         "prisma": "3.4.1",
         "react": "17.0.2",
