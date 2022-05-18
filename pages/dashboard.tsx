@@ -433,8 +433,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async function (
         newGuild.leagues = leagues;
 
         if (
-            leagues.length != 0 &&
-            (guild.permissions as bigint & 1) << 28 != 0
+            leagues.length != 0 && (guild.permissions as bigint & 1) << 28 != 0
         ) {
             for (let i = 0; i < newGuild.leagues.length; i++) {
                 newGuild.leagues[i].rules = await Prisma.getRules(
