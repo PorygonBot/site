@@ -353,25 +353,27 @@ export default function Index(props: Props) {
                             />
                         </p>
                         <p>
-                            Ping:
+                            Ping:⠀
                             <input
                                 type="textbox"
                                 name="ping"
                                 value={state.currentRules.ping}
                                 onChange={onRulesChange}
                             />
+                            ⠀⠀
                             <Link href="https://media.discordapp.net/attachments/705546616383471656/909550970030133308/unknown.png">
                                 <a target="_blank">?</a>
                             </Link>
                         </p>
                         <p>
-                            Redirect Channel:
+                            Redirect Channel:⠀
                             <input
                                 type="textbox"
                                 name="redirect"
                                 value={state.currentRules.redirect}
                                 onChange={onRulesChange}
                             />
+                            ⠀⠀
                             <Link href="https://media.discordapp.net/attachments/692097604108156928/909550311767695400/unknown.png">
                                 <a target="_blank">?</a>
                             </Link>
