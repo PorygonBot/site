@@ -18,7 +18,6 @@ interface State {
 }
 
 export default function Index(props: Props) {
-    const router = useRouter();
     const [state, setState] = useState({
         guild: props.user.guilds[0],
         league: props.user.guilds[0].leagues[0],
@@ -28,13 +27,6 @@ export default function Index(props: Props) {
 
     const onGuildSelect = (e) => {
         e.preventDefault();
-        console.log(props.user.guilds);
-        console.log(e.target.value);
-        console.log(
-            props.user.guilds.filter(
-                (guild: PartialGuild) => guild.id === e.target.value
-            )
-        );
         setState({
             guild: props.user.guilds.filter(
                 (guild: PartialGuild) => guild.id === e.target.value
@@ -47,9 +39,6 @@ export default function Index(props: Props) {
             )[0].leagues[0].rules,
             saved: false,
         });
-
-        console.log(state.guild.name);
-        console.log(state.guild.leagues.map((league) => league.name));
     };
 
     const onLeagueSelect = (e) => {
@@ -68,15 +57,7 @@ export default function Index(props: Props) {
 
     const onRulesChange = (e) => {
         let newCurrentRules = state.currentRules;
-        let value;
-        if (e.target.value === "on") {
-            value = true;
-        } else if (e.target.value === "off") {
-            value = false;
-        } else {
-            value = e.target.value;
-        }
-        newCurrentRules[e.target.name] = value;
+        newCurrentRules[e.target.name] = e.target.value;
 
         setState({
             ...state,
@@ -85,13 +66,23 @@ export default function Index(props: Props) {
         });
     };
 
+    const onRulesCheckboxChange = (e) => {
+        let newCurrentRules = state.currentRules;
+        newCurrentRules[e.target.name] = e.target.checked;
+
+        setState({
+            ...state,
+            currentRules: newCurrentRules,
+            saved: false
+        });
+    }
+
     const saveOptions = (e) => {
         const body = {
             channelId: state.league.channelId,
             leagueName: state.league.name,
             rules: JSON.stringify(state.currentRules),
         };
-        console.dir(body);
         const result = fetch("/api/rules", {
             method: "PUT",
             headers: {
@@ -320,16 +311,16 @@ export default function Index(props: Props) {
                                 type="checkbox"
                                 name="spoiler"
                                 checked={state.currentRules.spoiler}
-                                onChange={onRulesChange}
+                                onChange={onRulesCheckboxChange}
                             />
                         </p>
                         <p>
                             Tidbits:
                             <input
                                 type="checkbox"
-                                name="tidbits"
+                                name="tb"
                                 checked={state.currentRules.tb}
-                                onChange={onRulesChange}
+                                onChange={onRulesCheckboxChange}
                             />
                         </p>
                         <p>
@@ -338,7 +329,7 @@ export default function Index(props: Props) {
                                 type="checkbox"
                                 name="combine"
                                 checked={state.currentRules.combine}
-                                onChange={onRulesChange}
+                                onChange={onRulesCheckboxChange}
                             />
                         </p>
                     </div>
@@ -421,7 +412,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async function (
 ) {
     let user = await getUser(ctx);
 
-    if (!user || !user.guilds) {
+    if (!(user && user.guilds)) {
         return {
             redirect: {
                 destination: "/api/oauth",
@@ -434,7 +425,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async function (
     for (let guild of user.guilds) {
         let newGuild: PartialGuild = guild;
         let leagues = await Prisma.leagueWhere("guildId", guild.id);
-        console.log(`${guild.name}: ${leagues}`);
         newGuild.leagues = leagues;
 
         if (
