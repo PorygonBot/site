@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 import { DiscordUser, PartialGuild, League, Rules } from "../utils/types";
+import { Radio, Checkbox } from "../utils/dashInput";
 import { getUser } from "../utils/getUser";
 import Prisma from "../utils/prisma";
 
@@ -73,9 +73,9 @@ export default function Index(props: Props) {
         setState({
             ...state,
             currentRules: newCurrentRules,
-            saved: false
+            saved: false,
         });
-    }
+    };
 
     const saveOptions = (e) => {
         const body = {
@@ -123,212 +123,77 @@ export default function Index(props: Props) {
             leagueInfo = (
                 <div id="options">
                     <div id="battleOptions">
-                        <div>
+                        <div onChange={onRulesChange}>
                             Recoil:
-                            <input
-                                type="radio"
-                                id="D"
-                                name="recoil"
-                                value="D"
-                                checked={state.currentRules.recoil === "D"}
+                            <Radio
+                                rule="recoil"
+                                currentRule={state.currentRules.recoil}
                                 onChange={onRulesChange}
                             />
-                            <label>Direct</label>
-                            <input
-                                type="radio"
-                                id="P"
-                                name="recoil"
-                                value="P"
-                                checked={state.currentRules.recoil === "P"}
-                                onChange={onRulesChange}
-                            />
-                            <label>Passive</label>
-                            <input
-                                type="radio"
-                                id="N"
-                                name="recoil"
-                                value="N"
-                                checked={state.currentRules.recoil === "N"}
-                                onChange={onRulesChange}
-                            />
-                            <label>None</label>
                         </div>
                         <div onChange={onRulesChange}>
                             Suicide:
-                            <input
-                                type="radio"
-                                id="D"
-                                name="suicide"
-                                value="D"
-                                checked={state.currentRules.suicide === "D"}
+                            <Radio
+                                rule="suicide"
+                                currentRule={state.currentRules.suicide}
                                 onChange={onRulesChange}
                             />
-                            <label>Direct</label>
-                            <input
-                                type="radio"
-                                id="P"
-                                name="suicide"
-                                value="P"
-                                checked={state.currentRules.suicide === "P"}
-                                onChange={onRulesChange}
-                            />
-                            <label>Passive</label>
-                            <input
-                                type="radio"
-                                id="N"
-                                name="suicide"
-                                value="N"
-                                checked={state.currentRules.suicide === "N"}
-                                onChange={onRulesChange}
-                            />
-                            <label>None</label>
                         </div>
                         <div onChange={onRulesChange}>
                             Ability/Item:
-                            <input
-                                type="radio"
-                                id="D"
-                                name="abilityitem"
-                                value="D"
-                                checked={state.currentRules.abilityitem === "D"}
+                            <Radio
+                                rule="abilityitem"
+                                currentRule={state.currentRules.abilityitem}
                                 onChange={onRulesChange}
                             />
-                            <label>Direct</label>
-                            <input
-                                type="radio"
-                                id="P"
-                                name="abilityitem"
-                                value="P"
-                                checked={state.currentRules.abilityitem === "P"}
-                                onChange={onRulesChange}
-                            />
-                            <label>Passive</label>
-                            <input
-                                type="radio"
-                                id="N"
-                                name="abilityitem"
-                                value="N"
-                                checked={state.currentRules.abilityitem === "N"}
-                                onChange={onRulesChange}
-                            />
-                            <label>None</label>
                         </div>
                         <div onChange={onRulesChange}>
                             Self/Team:
-                            <input
-                                type="radio"
-                                id="D"
-                                name="selfteam"
-                                value="D"
-                                checked={state.currentRules.selfteam === "D"}
+                            <Radio
+                                rule="selfteam"
+                                currentRule={state.currentRules.selfteam}
                                 onChange={onRulesChange}
                             />
-                            <label>Direct</label>
-                            <input
-                                type="radio"
-                                id="P"
-                                name="selfteam"
-                                value="P"
-                                checked={state.currentRules.selfteam === "P"}
-                                onChange={onRulesChange}
-                            />
-                            <label>Passive</label>
-                            <input
-                                type="radio"
-                                id="N"
-                                name="selfteam"
-                                value="N"
-                                checked={state.currentRules.selfteam === "N"}
-                                onChange={onRulesChange}
-                            />
-                            <label>None</label>
                         </div>
                         <div onChange={onRulesChange}>
                             Destiny Bond:
-                            <input
-                                type="radio"
-                                id="D"
-                                name="db"
-                                value="D"
-                                checked={state.currentRules.db === "D"}
+                            <Radio
+                                rule="db"
+                                currentRule={state.currentRules.db}
                                 onChange={onRulesChange}
                             />
-                            <label>Direct</label>
-                            <input
-                                type="radio"
-                                id="P"
-                                name="db"
-                                value="P"
-                                checked={state.currentRules.db === "P"}
-                                onChange={onRulesChange}
-                            />
-                            <label>Passive</label>
-                            <input
-                                type="radio"
-                                id="N"
-                                name="db"
-                                value="N"
-                                checked={state.currentRules.db === "N"}
-                                onChange={onRulesChange}
-                            />
-                            <label>None</label>
                         </div>
                         <div onChange={onRulesChange}>
                             Forfeit
-                            <input
-                                type="radio"
-                                id="D"
-                                name="forfeit"
-                                value="D"
-                                checked={state.currentRules.forfeit === "D"}
+                            <Radio
+                                rule="forfeit"
+                                currentRule={state.currentRules.forfeit}
                                 onChange={onRulesChange}
                             />
-                            <label>Direct</label>
-                            <input
-                                type="radio"
-                                id="P"
-                                name="forfeit"
-                                value="P"
-                                checked={state.currentRules.forfeit === "P"}
-                                onChange={onRulesChange}
-                            />
-                            <label>Passive</label>
-                            <input
-                                type="radio"
-                                id="N"
-                                name="forfeit"
-                                value="N"
-                                checked={state.currentRules.forfeit === "N"}
-                                onChange={onRulesChange}
-                            />
-                            <label>None</label>
                         </div>
                     </div>
                     <div id="statsOptions">
                         <p>
                             Spoiler:
-                            <input
-                                type="checkbox"
-                                name="spoiler"
-                                checked={state.currentRules.spoiler}
+                            <Checkbox
+                                rule="spoiler"
+                                currentRule={state.currentRules.spoiler}
                                 onChange={onRulesCheckboxChange}
                             />
                         </p>
                         <p>
                             Tidbits:
-                            <input
-                                type="checkbox"
-                                name="tb"
-                                checked={state.currentRules.tb}
+                            <Checkbox
+                                rule="tb"
+                                currentRule={state.currentRules.tb}
                                 onChange={onRulesCheckboxChange}
                             />
                         </p>
                         <p>
                             Combine Direct/Passive:
-                            <input
-                                type="checkbox"
-                                name="combine"
-                                checked={state.currentRules.combine}
+                            <Checkbox
+                                rule="combine"
+                                currentRule={state.currentRules.combine}
                                 onChange={onRulesCheckboxChange}
                             />
                         </p>
@@ -336,20 +201,18 @@ export default function Index(props: Props) {
                     <div id="otherOptions">
                         <p>
                             Quirks:
-                            <input
-                                type="checkbox"
-                                name="quirks"
-                                checked={state.currentRules.quirks}
-                                onChange={onRulesChange}
+                            <Checkbox
+                                rule="quirks"
+                                currentRule={state.currentRules.quirks}
+                                onChange={onRulesCheckboxChange}
                             />
                         </p>
                         <p>
                             Don't Talk in Discord:
-                            <input
-                                type="checkbox"
-                                name="notalk"
-                                checked={state.currentRules.notalk}
-                                onChange={onRulesChange}
+                            <Checkbox
+                                rule="notalk"
+                                currentRule={state.currentRules.notalk}
+                                onChange={onRulesCheckboxChange}
                             />
                         </p>
                         <p>
