@@ -100,7 +100,7 @@ export default function Index(props: Props) {
 
     let savedText;
     if (state.saved) {
-        savedText = <p>Saved!</p>;
+        savedText = "  Saved!";
     }
 
     let leagueDropdown;
@@ -242,8 +242,7 @@ export default function Index(props: Props) {
                             </Link>
                         </p>
                     </div>
-                    <button onClick={saveOptions}>Save</button>
-                    {savedText}
+                    <button onClick={saveOptions}>Save</button> {savedText}
                 </div>
             );
         }
