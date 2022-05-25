@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { DiscordUser, PartialGuild, League, Rules } from "../utils/types";
 import { Radio, Checkbox } from "../utils/dashInput";
@@ -18,6 +19,7 @@ interface State {
 }
 
 export default function Index(props: Props) {
+    const router = useRouter();
     const [state, setState] = useState({
         guild: props.user.guilds[0],
         league: props.user.guilds[0].leagues[0],
@@ -96,6 +98,26 @@ export default function Index(props: Props) {
             .catch((e) => console.error(e));
 
         setState({ ...state, saved: true });
+    };
+
+    const deleteLeague = (e) => {
+        if (
+            window.confirm(
+                `Are you sure you want to delete league "${state.league.name}" in "${state.guild.name}"?`
+            )
+        ) {
+            const result = fetch("/api/rules", {
+                method: "DELETE",
+                body: JSON.stringify({
+                    channelId: state.league.channelId,
+                }),
+            })
+                .then((result) => result)
+                .catch((e) => console.error(e));
+
+            router.replace(router.asPath);
+            router.reload();
+        }
     };
 
     let savedText;
@@ -243,6 +265,7 @@ export default function Index(props: Props) {
                         </p>
                     </div>
                     <button onClick={saveOptions}>Save</button> {savedText}
+                    <button onClick={deleteLeague}>Delete</button>
                 </div>
             );
         }
