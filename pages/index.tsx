@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 import { DiscordUser, PartialGuild } from "../utils/types";
 import { getUser } from "../utils/getUser";
-import Prisma from '../utils/prisma';
+import { Header } from "../utils/header"
 
 interface Props {
     user: DiscordUser;
@@ -41,7 +41,7 @@ export default function Index(props: Props) {
 
     return (
         <div>
-            <h1>Porygon</h1>
+            <Header />
             {button}
             {mainText}
         </div>

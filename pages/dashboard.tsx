@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 import { DiscordUser, PartialGuild, League, Rules } from "../utils/types";
 import { Radio, Checkbox } from "../utils/dashInput";
+import { Header } from "../utils/header"
 import { getUser } from "../utils/getUser";
 import Prisma from "../utils/prisma";
 
@@ -273,10 +274,7 @@ export default function Index(props: Props) {
 
     return (
         <div>
-            <h1>Porygon</h1>
-            <Link href="/">
-                <a>Home</a>
-            </Link>
+            <Header />
             <p>This is your dashboard</p>
             <br />
             <label>Server: </label>
