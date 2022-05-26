@@ -8,7 +8,7 @@ export function Header() {
                 <a>Home</a>
             </Link>
             <br />
-            <Link href="https://www.notion.so/Porygon-Setup-Usage-Tutorial-69e286240d2c4309a8d53f7a3beb7c6c">
+            <Link href="https://harbar20s.notion.site/Porygon-69e286240d2c4309a8d53f7a3beb7c6c">
                 <a>Help</a>
             </Link>
             <br />
